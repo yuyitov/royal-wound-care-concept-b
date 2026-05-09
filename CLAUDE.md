@@ -1,4 +1,8 @@
-# Royal Wound Care — Maqueta Estática (Concepto)
+# Royal Wound Care — Maqueta Estática (Concepto) — VERSIÓN B
+
+⚠️ Este es el directorio de la VERSIÓN B. No modificar el directorio de la Versión A (`royal-wound-care-concept`).
+- Versión A (congelada): https://yuyitov.github.io/royal-wound-care-concept/
+- Versión B (activa): https://yuyitov.github.io/royal-wound-care-concept-b/
 
 Este proyecto es una maqueta externa segura y estática para Royal Wound Care.
 No es el sitio real. No está conectado a ningún sistema de producción.
