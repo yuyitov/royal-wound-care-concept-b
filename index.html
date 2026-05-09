@@ -563,53 +563,57 @@
     .hero-choice-card {
       flex: 1;
       min-width: 188px;
-      padding: 22px 20px 18px;
-      border-radius: 20px;
-      background: rgba(255,255,255,.82);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1.5px solid rgba(31,59,104,.10);
-      border-top: 3px solid var(--teal);
-      box-shadow: 0 10px 38px rgba(31,59,104,.11);
+      padding: 22px 20px 20px;
+      border-radius: 26px;
+      background: rgba(255,255,255,.18);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(255,255,255,.45);
+      box-shadow:
+        0 2px 24px rgba(31,59,104,.08),
+        inset 0 1px 0 rgba(255,255,255,.55);
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
       text-decoration: none;
       color: var(--navy);
-      transition: transform .26s ease, box-shadow .26s ease, border-color .26s ease;
+      transition: transform .28s ease, background .28s ease, box-shadow .28s ease;
       position: relative;
       overflow: hidden;
     }
 
-    .hero-choice-card::after {
+    /* Subtle inner shimmer top-left */
+    .hero-choice-card::before {
       content: "";
       position: absolute;
-      inset: 0;
-      border-radius: 20px;
-      background: linear-gradient(135deg, rgba(44,166,164,.06) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity .26s;
+      top: 0; left: 0; right: 0;
+      height: 50%;
+      border-radius: 26px 26px 0 0;
+      background: linear-gradient(to bottom, rgba(255,255,255,.28), transparent);
+      pointer-events: none;
     }
 
     .hero-choice-card:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 22px 56px rgba(44,166,164,.22), 0 8px 24px rgba(31,59,104,.10);
-      border-color: var(--teal);
+      transform: translateY(-8px);
+      background: rgba(255,255,255,.28);
+      box-shadow:
+        0 16px 48px rgba(31,59,104,.14),
+        0 0 0 1px rgba(255,255,255,.60),
+        inset 0 1px 0 rgba(255,255,255,.70);
     }
-    .hero-choice-card:hover::after { opacity: 1; }
 
     .hero-choice-card__icon {
-      width: 42px; height: 42px;
+      width: 40px; height: 40px;
       border-radius: 12px;
-      background: rgba(44,166,164,.12);
-      border: 1px solid rgba(44,166,164,.22);
+      background: rgba(255,255,255,.28);
+      border: 1px solid rgba(255,255,255,.50);
       display: grid;
       place-items: center;
       margin-bottom: 2px;
     }
     .hero-choice-card__icon svg {
-      width: 22px; height: 22px;
-      stroke: var(--teal-dark);
+      width: 21px; height: 21px;
+      stroke: var(--navy);
       stroke-width: 1.8;
       fill: none;
       stroke-linecap: round;
@@ -630,26 +634,26 @@
       margin: 0;
       font-size: 13px;
       line-height: 1.52;
-      color: var(--muted);
+      color: rgba(31,59,104,.72);
       flex: 1;
     }
 
     .hero-choice-card__arrow {
       align-self: flex-end;
-      width: 34px; height: 34px;
+      width: 32px; height: 32px;
       border-radius: 50%;
-      border: 1.5px solid rgba(44,166,164,.38);
+      background: rgba(255,255,255,.28);
+      border: 1px solid rgba(255,255,255,.50);
       display: grid;
       place-items: center;
-      font-size: 17px;
-      color: var(--teal-dark);
-      transition: background .22s ease, border-color .22s ease, color .22s ease;
-      margin-top: 6px;
+      font-size: 16px;
+      color: var(--navy);
+      transition: background .22s ease, border-color .22s ease;
+      margin-top: 4px;
     }
     .hero-choice-card:hover .hero-choice-card__arrow {
-      background: var(--teal);
-      border-color: var(--teal);
-      color: #fff;
+      background: rgba(255,255,255,.55);
+      border-color: rgba(255,255,255,.80);
     }
 
     /* ── Slide indicator (decorative, like Figma) ── */
