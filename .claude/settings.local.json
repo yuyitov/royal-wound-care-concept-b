@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git push *)",
+      "Bash(start *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "PowerShell(Start-Process \"C:\\\\Users\\\\veron\\\\Documents\\\\royal-wound-care-concept\\\\index.html\")",
+      "PowerShell(Start-Process \"C:\\\\Users\\\\veron\\\\Documents\\\\royal-wound-care-concept\\\\skilled-nursing-facilities.html\")",
+      "WebFetch(domain:royalwoundcare.com)",
+      "Bash(powershell -Command \"\\(Get-Content index.html\\) -replace '<span class=\\\\\"c-bg-num\\\\\">[^<]*</span>', '' | Set-Content index.html -Encoding utf8\")",
+      "Bash(python -c \"import os; os.remove\\('fix_encoding.py'\\)\")",
+      "Bash(gh auth *)",
+      "Bash(gh repo *)"
+    ]
+  }
+}
