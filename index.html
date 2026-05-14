@@ -333,6 +333,8 @@
       z-index: 1;
       background: #C5D8EA;
       overflow: hidden;
+      transform: translateZ(0);
+      will-change: transform;
     }
 
     /* Fade left edge into hero background seamlessly */
@@ -351,9 +353,10 @@
       height: 100%;
       object-fit: cover;
       object-position: center center;
-      /* Scale up 50% to crop out dark borders of the video file */
-      transform: scale(1.5);
       display: block;
+      transform: translateZ(0);
+      will-change: transform;
+      isolation: isolate;
     }
 
     /* Pulsing teal glow centered on the video */
@@ -552,108 +555,97 @@
       line-height: 1.62;
     }
 
-    /* ── Hero choice cards (2 audience CTAs) ── */
+    /* ── Hero choice cards — floating over video, right side ── */
     .hero-choice-grid {
+      position: absolute;
+      right: 5%;
+      top: 0;
+      bottom: 0;
+      z-index: 5;
       display: flex;
-      gap: 16px;
-      margin-top: 34px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: center;
+      gap: 50px;
+      width: 240px;
     }
 
     .hero-choice-card {
-      flex: 1;
-      min-width: 188px;
-      padding: 22px 20px 20px;
-      border-radius: 26px;
-      background: rgba(255,255,255,.18);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
-      border: 1px solid rgba(255,255,255,.45);
-      box-shadow:
-        0 2px 24px rgba(31,59,104,.08),
-        inset 0 1px 0 rgba(255,255,255,.55);
+      width: 100%;
+      height: 180px;
+      padding: 24px 22px 20px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.24);
+      border: 1px solid rgba(255,255,255,.42);
+      box-shadow: 0 8px 32px rgba(31,59,104,.12);
       display: flex;
       flex-direction: column;
       gap: 10px;
       text-decoration: none;
       color: var(--navy);
-      transition: transform .28s ease, background .28s ease, box-shadow .28s ease;
+      transition: transform .30s ease, background .30s ease, box-shadow .30s ease, border-color .30s ease;
       position: relative;
       overflow: hidden;
     }
 
-    /* Subtle inner shimmer top-left */
+    /* Shimmer top */
     .hero-choice-card::before {
       content: "";
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 50%;
-      border-radius: 26px 26px 0 0;
+      height: 45%;
+      border-radius: 22px 22px 0 0;
       background: linear-gradient(to bottom, rgba(255,255,255,.28), transparent);
       pointer-events: none;
+      z-index: 1;
     }
 
     .hero-choice-card:hover {
-      transform: translateY(-8px);
-      background: rgba(255,255,255,.28);
+      transform: translateX(-6px);
+      background: rgba(255,255,255,.24);
+      border-color: rgba(255,255,255,.55);
       box-shadow:
-        0 16px 48px rgba(31,59,104,.14),
-        0 0 0 1px rgba(255,255,255,.60),
+        0 12px 40px rgba(31,59,104,.18),
+        0 0 0 1px rgba(31,59,104,.12),
         inset 0 1px 0 rgba(255,255,255,.70);
-    }
-
-    .hero-choice-card__icon {
-      width: 40px; height: 40px;
-      border-radius: 12px;
-      background: rgba(255,255,255,.28);
-      border: 1px solid rgba(255,255,255,.50);
-      display: grid;
-      place-items: center;
-      margin-bottom: 2px;
-    }
-    .hero-choice-card__icon svg {
-      width: 21px; height: 21px;
-      stroke: var(--navy);
-      stroke-width: 1.8;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
     }
 
     .hero-choice-card h3 {
       margin: 0;
       font-family: Georgia, 'Times New Roman', serif;
-      font-size: 18px;
+      font-size: 22px;
       font-weight: 700;
-      line-height: 1.18;
+      line-height: 1.15;
       letter-spacing: -.02em;
-      color: var(--navy);
+      color: var(--navy-dark);
+      text-shadow: 0 1px 3px rgba(255,255,255,.55);
     }
 
     .hero-choice-card p {
       margin: 0;
-      font-size: 13px;
-      line-height: 1.52;
-      color: rgba(31,59,104,.72);
+      font-size: 15px;
+      line-height: 1.50;
+      color: rgba(19,40,69,.90);
       flex: 1;
+      text-shadow: 0 1px 2px rgba(255,255,255,.45);
     }
 
     .hero-choice-card__arrow {
       align-self: flex-end;
-      width: 32px; height: 32px;
+      width: 28px; height: 28px;
       border-radius: 50%;
       background: rgba(255,255,255,.28);
-      border: 1px solid rgba(255,255,255,.50);
+      border: 1px solid rgba(255,255,255,.45);
       display: grid;
       place-items: center;
-      font-size: 16px;
+      font-size: 15px;
       color: var(--navy);
-      transition: background .22s ease, border-color .22s ease;
+      transition: background .28s ease, border-color .28s ease, color .28s ease;
       margin-top: 4px;
     }
     .hero-choice-card:hover .hero-choice-card__arrow {
-      background: rgba(255,255,255,.55);
-      border-color: rgba(255,255,255,.80);
+      background: rgba(31,59,104,.14);
+      border-color: rgba(31,59,104,.35);
+      color: var(--navy-dark);
     }
 
     /* ── Slide indicator (decorative, like Figma) ── */
@@ -2049,8 +2041,16 @@
         line-height: 1.04;
       }
       .hero-premium__copy { font-size: 16px; margin: 18px 0 28px; }
-      .hero-choice-grid { flex-direction: column; gap: 12px; }
-      .hero-choice-card { min-width: 0; }
+      .hero-choice-grid {
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 0;
+        width: 100%;
+        margin-top: 28px;
+      }
+      .hero-choice-card { flex: 1; min-width: 160px; }
       .hero-slide-indicator { bottom: 24px; left: 20px; }
       .section { padding: 64px 18px; }
       .drainage-content h2 { font-size: 42px; }
@@ -2214,8 +2214,8 @@
 
         <!-- Full-bleed visual: cells video, right side, no clip -->
         <div class="hero-bg-visual" aria-hidden="true">
-          <video autoplay loop muted playsinline>
-            <source src="cells.png.mp4" type="video/mp4">
+          <video autoplay loop muted playsinline poster="Gemini_Generated_Image_hmt1xbhmt1xbhmt1.png">
+            <source src="cell-healing.mp4" type="video/mp4">
           </video>
           <div class="hero-glow-pulse"></div>
         </div>
@@ -2232,45 +2232,27 @@
             </h1>
 
             <p class="hero-premium__copy">
-              Specialized wound care in Los Angeles &mdash; mobile, in-clinic, and facility-based. Select your path below.
+              Specialized wound care in Los Angeles &mdash; mobile, in-clinic, and facility-based.
             </p>
-
-            <!-- 2 audience choice cards — only clickable CTAs in the hero -->
-            <div class="hero-choice-grid">
-
-              <a class="hero-choice-card" href="skilled-nursing-facilities.html">
-                <span class="hero-choice-card__icon" aria-hidden="true">
-                  <svg viewBox="0 0 48 48">
-                    <path d="M12 42V16h24v26"/>
-                    <path d="M18 42V30h12v12"/>
-                    <path d="M17 22h2M23 22h2M29 22h2M17 28h2M29 28h2"/>
-                    <path d="M20 12l4-6 4 6"/>
-                    <path d="M16 12h16"/>
-                  </svg>
-                </span>
-                <h3>For Nursing<br>Facilities</h3>
-                <p>Wound care support, bedside services, staff education, and partnership pathways for care teams.</p>
-                <span class="hero-choice-card__arrow">&#8250;</span>
-              </a>
-
-              <a class="hero-choice-card" href="#patients">
-                <span class="hero-choice-card__icon" aria-hidden="true">
-                  <svg viewBox="0 0 48 48">
-                    <path d="M14 23c-5 3-8 8-8 15"/>
-                    <path d="M34 23c5 3 8 8 8 15"/>
-                    <path d="M24 39V26"/>
-                    <path d="M24 18c-4-6-12-4-12 3 0 7 12 13 12 13s12-6 12-13c0-7-8-9-12-3Z"/>
-                  </svg>
-                </span>
-                <h3>For Patients<br>&amp; Families</h3>
-                <p>Appointment pathways, care setting information, and wound care resources for patients and families.</p>
-                <span class="hero-choice-card__arrow">&#8250;</span>
-              </a>
-
-            </div>
           </div>
         </div>
 
+        <!-- Audience cards — floating over the cell video, right side -->
+        <div class="hero-choice-grid">
+
+          <a class="hero-choice-card" href="skilled-nursing-facilities.html">
+            <h3>For Nursing<br>Facilities</h3>
+            <p>Bedside wound care, staff education &amp; SNF partnership pathways.</p>
+            <span class="hero-choice-card__arrow">&#8250;</span>
+          </a>
+
+          <a class="hero-choice-card" href="#patients">
+            <h3>For Patients</h3>
+            <p>Care pathways, resources &amp; appointment options.</p>
+            <span class="hero-choice-card__arrow">&#8250;</span>
+          </a>
+
+        </div>
 
       </section>
 
